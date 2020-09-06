@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Skinet.Core\Skinet.Core.csproj" />
+    <ProjectReference Include="..\Skinet.Storage.SQLite.EF.DbInit\Skinet.Storage.SQLite.EF.DbInit.csproj" />
+    <ProjectReference Include="..\Skinet.Storage.SQLite.EF.DbSeed\Skinet.Storage.SQLite.EF.DbSeed.csproj" />
+    <ProjectReference Include="..\Skinet.Storage.SQLite.EF\Skinet.Storage.SQLite.EF.csproj" />
+  </ItemGroup>
+
+
+</Project>

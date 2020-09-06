@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skinet.WebApi", "Skinet.WebApi\Skinet.WebApi.csproj", "{4A46EF45-1016-405C-8218-AC9F91B647D4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skinet.Core", "Skinet.Core\Skinet.Core.csproj", "{77E0F342-272E-4504-983B-49DB46FCE509}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skinet.Storage.SQLite.EF", "Skinet.Storage.SQLite.EF\Skinet.Storage.SQLite.EF.csproj", "{3F5C8BDE-BC4E-4FED-AC0C-9D7AC315580E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skinet.Storage.SQLite.EF.DbInit", "Skinet.Storage.SQLite.EF.DbInit\Skinet.Storage.SQLite.EF.DbInit.csproj", "{B4310CA2-7B1D-46A8-B8CF-80F66CF18E5D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skinet.Storage.SQLite.EF.DbSeed", "Skinet.Storage.SQLite.EF.DbSeed\Skinet.Storage.SQLite.EF.DbSeed.csproj", "{60C84088-AD18-4573-BC4F-757EE7E71DEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.Storage.Core", "Skinet.Storage.Core\Skinet.Storage.Core.csproj", "{EC942F3C-5F35-4FEE-B3E8-3676394A4D4D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A46EF45-1016-405C-8218-AC9F91B647D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A46EF45-1016-405C-8218-AC9F91B647D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A46EF45-1016-405C-8218-AC9F91B647D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A46EF45-1016-405C-8218-AC9F91B647D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77E0F342-272E-4504-983B-49DB46FCE509}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E0F342-272E-4504-983B-49DB46FCE509}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E0F342-272E-4504-983B-49DB46FCE509}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E0F342-272E-4504-983B-49DB46FCE509}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F5C8BDE-BC4E-4FED-AC0C-9D7AC315580E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F5C8BDE-BC4E-4FED-AC0C-9D7AC315580E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F5C8BDE-BC4E-4FED-AC0C-9D7AC315580E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F5C8BDE-BC4E-4FED-AC0C-9D7AC315580E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4310CA2-7B1D-46A8-B8CF-80F66CF18E5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4310CA2-7B1D-46A8-B8CF-80F66CF18E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4310CA2-7B1D-46A8-B8CF-80F66CF18E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4310CA2-7B1D-46A8-B8CF-80F66CF18E5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60C84088-AD18-4573-BC4F-757EE7E71DEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60C84088-AD18-4573-BC4F-757EE7E71DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60C84088-AD18-4573-BC4F-757EE7E71DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60C84088-AD18-4573-BC4F-757EE7E71DEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC942F3C-5F35-4FEE-B3E8-3676394A4D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC942F3C-5F35-4FEE-B3E8-3676394A4D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC942F3C-5F35-4FEE-B3E8-3676394A4D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC942F3C-5F35-4FEE-B3E8-3676394A4D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {34C546A6-4E63-4F9C-BF75-5F0CC13100EB}
+	EndGlobalSection
+EndGlobal
