@@ -10,7 +10,7 @@ namespace Skinet.Core
 
         public ProductType(int id, string name) : base(id)
         {
-            Name = name;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
         }
     }
 }

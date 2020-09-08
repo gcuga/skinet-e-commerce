@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Skinet.Core\Skinet.Core.csproj" />
+    <ProjectReference Include="..\Skinet.Storage.Core\Skinet.Storage.Core.csproj" />
   </ItemGroup>
 
 </Project>

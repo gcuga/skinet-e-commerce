@@ -1,8 +1,9 @@
 ﻿using Skinet.Core;
+using Skinet.Storage.Core;
 
 namespace Skinet.Storage.SQLite.EF.Entities
 {
-    public class ProductDto : BaseEntityDto
+    public class ProductDto : BaseEntityDto, IMapToCoreEntity<Product>
     {
         public string Name { get; set; }
 
@@ -20,7 +21,7 @@ namespace Skinet.Storage.SQLite.EF.Entities
 
         public int ProductBrandId { get; set; }
 
-        public Product ToProduct() => 
+        public Product ToCoreEntity() =>
             new Product(Id,
                         Name,
                         Description,

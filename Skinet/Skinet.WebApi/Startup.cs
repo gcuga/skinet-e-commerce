@@ -14,8 +14,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using Skinet.Core;
+using Skinet.Storage.Core;
 using Skinet.Storage.SQLite.EF;
 using Skinet.Storage.SQLite.EF.Context;
+using Skinet.Storage.SQLite.EF.Entities;
 
 namespace Skinet.WebApi
 {
@@ -35,6 +37,7 @@ namespace Skinet.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped(typeof(IGenericStorage<,>), typeof(GenericStorage<,>));
             services.AddScoped<IProductStorage, SQLiteProductStorage>();
             services.AddDbContext<StorageContext>(x => x.UseSqlite(ConnectionString));
         }

@@ -1,0 +1,11 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Skinet.Core
+{
+    public interface IMapToCoreEntity<T>
+    {
+        T ToCoreEntity();
+    }
+}

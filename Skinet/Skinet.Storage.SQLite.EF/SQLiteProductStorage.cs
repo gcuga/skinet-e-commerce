@@ -7,71 +7,71 @@ using Microsoft.EntityFrameworkCore;
 using Skinet.Core;
 using Skinet.Storage.SQLite.EF.Context;
 using Skinet.Storage.SQLite.EF.Entities;
+using Skinet.Storage.Core;
+using System;
 
 namespace Skinet.Storage.SQLite.EF
 {
     public class SQLiteProductStorage : IProductStorage
     {
-        private readonly StorageContext _context;
+        private readonly GenericStorage<ProductDto, StorageContext> _productStorage;
+        private readonly GenericStorage<ProductTypeDto, StorageContext> _productTypeStorage;
+        private readonly GenericStorage<ProductBrandDto, StorageContext> _productBrandStorage;
 
-        public SQLiteProductStorage(StorageContext context)
+        public SQLiteProductStorage(GenericStorage<ProductDto, StorageContext> productStorage,
+            GenericStorage<ProductTypeDto, StorageContext> productTypeStorage,
+            GenericStorage<ProductBrandDto, StorageContext> productBrandStorage
+            //StorageContext context
+            )
         {
-            _context = context;
+            _productStorage = productStorage;
+            _productTypeStorage = productTypeStorage;
+            _productBrandStorage = productBrandStorage;
+            //_productStorage = new GenericStorage<ProductDto, StorageContext>(context);
+            //_productTypeStorage = new GenericStorage<ProductTypeDto, StorageContext>(context);
+            //_productBrandStorage = new GenericStorage<ProductBrandDto, StorageContext>(context);
         }
 
         public async Task<Product> GetProductAsync(int id)
         {
-            ProductDto productDto = await _context
-                .Products
-                .Include(p => p.ProductType)
-                .Include(p => p.ProductBrand)
-                .FirstOrDefaultAsync(p => p.Id == id);
+            ProductDto productDto = await _productStorage.GetByIdAsync(id);
 
-            return productDto?.ToProduct();
+            return productDto?.ToCoreEntity();
         }
 
         public async Task<ProductBrand> GetProductBrandAsync(int id)
         {
-            ProductBrandDto productBrandDto = await _context
-                .ProductBrands
-                .FindAsync(id);
+            ProductBrandDto productBrandDto = await _productBrandStorage.GetByIdAsync(id);
 
-            return productBrandDto?.ToProductBrand();
+            return productBrandDto?.ToCoreEntity();
         }
 
         public async Task<ProductType> GetProductTypeAsync(int id)
         {
-            ProductTypeDto productTypeDto = await _context
-                .ProductTypes
-                .FindAsync(id);
+            ProductTypeDto productTypeDto = await _productTypeStorage.GetByIdAsync(id);
 
-            return productTypeDto?.ToProductType();
+            return productTypeDto?.ToCoreEntity();
         }
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
-           return await _context
-                .Products
-                .Include(p => p.ProductType)
-                .Include(p => p.ProductBrand)
-                .Select(p => p.ToProduct())
-                .ToListAsync();
+            return (await _productStorage.ListAllAsync())
+                .Select(p => p.ToCoreEntity())
+                .ToList();
         }
 
         public async Task<IReadOnlyList<ProductBrand>> GetProductBrandsAsync()
         {
-            return await _context
-                 .ProductBrands
-                 .Select(b => b.ToProductBrand())
-                 .ToListAsync();
+            return (await _productBrandStorage.ListAllAsync())
+                .Select(b => b.ToCoreEntity())
+                .ToList();
         }
 
         public async Task<IReadOnlyList<ProductType>> GetProductTypesAsync()
         {
-            return await _context
-                 .ProductTypes
-                 .Select(t => t.ToProductType())
-                 .ToListAsync();
+            return (await _productTypeStorage.ListAllAsync())
+                .Select(t => t.ToCoreEntity())
+                .ToList();
         }
     }
 }
