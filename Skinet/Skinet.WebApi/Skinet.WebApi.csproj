@@ -5,11 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Skinet.Core\Skinet.Core.csproj" />
     <ProjectReference Include="..\Skinet.Storage.Core\Skinet.Storage.Core.csproj" />
     <ProjectReference Include="..\Skinet.Storage.SQLite.EF.DbInit\Skinet.Storage.SQLite.EF.DbInit.csproj" />
     <ProjectReference Include="..\Skinet.Storage.SQLite.EF.DbSeed\Skinet.Storage.SQLite.EF.DbSeed.csproj" />
     <ProjectReference Include="..\Skinet.Storage.SQLite.EF\Skinet.Storage.SQLite.EF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 

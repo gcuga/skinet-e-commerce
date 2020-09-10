@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Skinet.Core
 {
-    public interface IMapToCoreEntity<T>
+    public interface IMapToCoreEntity<T> where T : BaseEntityCore
     {
         T ToCoreEntity();
     }

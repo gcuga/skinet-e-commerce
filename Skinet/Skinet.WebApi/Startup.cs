@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using AutoMapper;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -18,6 +20,7 @@ using Skinet.Storage.Core;
 using Skinet.Storage.SQLite.EF;
 using Skinet.Storage.SQLite.EF.Context;
 using Skinet.Storage.SQLite.EF.Entities;
+using Skinet.WebApi.Helpers;
 
 namespace Skinet.WebApi
 {
@@ -36,10 +39,11 @@ namespace Skinet.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddScoped(typeof(IGenericStorage<,>), typeof(GenericStorage<,>));
+            
             services.AddScoped<IProductStorage, SQLiteProductStorage>();
             services.AddDbContext<StorageContext>(x => x.UseSqlite(ConnectionString));
+            services.AddAutoMapper(typeof(MappingProfiles));
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +57,8 @@ namespace Skinet.WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseStaticFiles();
 
             app.UseAuthorization();
 

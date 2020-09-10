@@ -2,13 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.EntityFrameworkCore;
-
 using Skinet.Core;
+using Skinet.Storage.Core;
 using Skinet.Storage.SQLite.EF.Context;
 using Skinet.Storage.SQLite.EF.Entities;
-using Skinet.Storage.Core;
-using System;
+using Skinet.Storage.SQLite.EF.Specifications;
 
 namespace Skinet.Storage.SQLite.EF
 {
@@ -18,23 +16,18 @@ namespace Skinet.Storage.SQLite.EF
         private readonly GenericStorage<ProductTypeDto, StorageContext> _productTypeStorage;
         private readonly GenericStorage<ProductBrandDto, StorageContext> _productBrandStorage;
 
-        public SQLiteProductStorage(GenericStorage<ProductDto, StorageContext> productStorage,
-            GenericStorage<ProductTypeDto, StorageContext> productTypeStorage,
-            GenericStorage<ProductBrandDto, StorageContext> productBrandStorage
-            //StorageContext context
-            )
+        public SQLiteProductStorage(StorageContext context)
         {
-            _productStorage = productStorage;
-            _productTypeStorage = productTypeStorage;
-            _productBrandStorage = productBrandStorage;
-            //_productStorage = new GenericStorage<ProductDto, StorageContext>(context);
-            //_productTypeStorage = new GenericStorage<ProductTypeDto, StorageContext>(context);
-            //_productBrandStorage = new GenericStorage<ProductBrandDto, StorageContext>(context);
+            _productStorage = new GenericStorage<ProductDto, StorageContext>(context);
+            _productTypeStorage = new GenericStorage<ProductTypeDto, StorageContext>(context);
+            _productBrandStorage = new GenericStorage<ProductBrandDto, StorageContext>(context);
         }
 
         public async Task<Product> GetProductAsync(int id)
         {
-            ProductDto productDto = await _productStorage.GetByIdAsync(id);
+            var spec = new ProductDtoWithTypesAndBrandsSpecification(id);
+
+            ProductDto productDto = await _productStorage.GetEntityWithSpec(spec);
 
             return productDto?.ToCoreEntity();
         }
@@ -55,7 +48,9 @@ namespace Skinet.Storage.SQLite.EF
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
-            return (await _productStorage.ListAllAsync())
+            var spec = new ProductDtoWithTypesAndBrandsSpecification();
+
+            return (await _productStorage.ListAsync(spec))
                 .Select(p => p.ToCoreEntity())
                 .ToList();
         }

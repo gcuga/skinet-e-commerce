@@ -12,5 +12,7 @@ namespace Skinet.Core
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
         }
+
+        public override string ToString() => Name;
     }
 }

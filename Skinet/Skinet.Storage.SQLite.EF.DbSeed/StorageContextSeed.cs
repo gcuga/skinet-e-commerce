@@ -18,7 +18,9 @@ namespace Skinet.Storage.SQLite.EF.DbSeed
         {
             try
             {
+#pragma warning disable EF1001 // Internal EF Core API usage.
                 if (!context.ProductTypes.Any())
+#pragma warning restore EF1001 // Internal EF Core API usage.
                 {
                     var typesData = Encoding.UTF8.GetString(Properties.SeedResources.types);
                     var types = JsonSerializer.Deserialize<List<ProductTypeDto>>(typesData);
@@ -27,7 +29,9 @@ namespace Skinet.Storage.SQLite.EF.DbSeed
                 }
 
 
+#pragma warning disable EF1001 // Internal EF Core API usage.
                 if (!context.ProductBrands.Any())
+#pragma warning restore EF1001 // Internal EF Core API usage.
                 {
                     var brandsData = Encoding.UTF8.GetString(Properties.SeedResources.brands);
                     var brands = JsonSerializer.Deserialize<List<ProductBrandDto>>(brandsData);
@@ -35,7 +39,9 @@ namespace Skinet.Storage.SQLite.EF.DbSeed
                     await context.SaveChangesAsync();
                 }
 
+#pragma warning disable EF1001 // Internal EF Core API usage.
                 if (!context.Products.Any())
+#pragma warning restore EF1001 // Internal EF Core API usage.
                 {
                     var productsData = Encoding.UTF8.GetString(Properties.SeedResources.products);
                     var products = JsonSerializer.Deserialize<List<ProductDto>>(productsData);

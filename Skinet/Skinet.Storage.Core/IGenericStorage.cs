@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
+using Skinet.Storage.Core.Specifications;
+
 namespace Skinet.Storage.Core
 {
     public interface IGenericStorage<T, C>
@@ -11,5 +13,7 @@ namespace Skinet.Storage.Core
     {
         Task<T> GetByIdAsync(int id);
         Task<IReadOnlyList<T>> ListAllAsync();
+        Task<T> GetEntityWithSpec(ISpecification<T> spec);
+        Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
     }
 }
