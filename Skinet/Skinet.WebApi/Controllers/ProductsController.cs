@@ -4,23 +4,26 @@ using System.Threading.Tasks;
 
 using AutoMapper;
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using Skinet.Core;
 using Skinet.WebApi.Dtos;
+using Skinet.WebApi.Errors;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Skinet.WebApi.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+    public class ProductsController : BaseApiController
     {
         private readonly IProductStorage _productStorage;
         private readonly IMapper _mapper;
 
-        public ProductsController(IProductStorage productStorage, IMapper mapper)
+        public ProductsController(IProductStorage productStorage,
+                                  IMapper mapper,
+                                  IApiStatusMessageDictionary statusMessageDictionary)
+            : base(statusMessageDictionary)
         {
             _productStorage = productStorage;
             _mapper = mapper;
@@ -36,6 +39,8 @@ namespace Skinet.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductToReturnDto>> Get(int id)
         {
             Product product = await _productStorage.GetProductAsync(id);
@@ -46,7 +51,7 @@ namespace Skinet.WebApi.Controllers
                 return Ok(productToReturnDto);
             }
 
-            return NotFound();
+            return NotFound(new ApiResponse(ApiStatusCode.NotFound, _statusMessageDictionary));
         }
 
         [HttpGet("brands")]

@@ -1,26 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 using AutoMapper;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
-using Skinet.Core;
-using Skinet.Storage.Core;
-using Skinet.Storage.SQLite.EF;
 using Skinet.Storage.SQLite.EF.Context;
-using Skinet.Storage.SQLite.EF.Entities;
+using Skinet.WebApi.Extensions;
 using Skinet.WebApi.Helpers;
+using Skinet.WebApi.Middleware;
 
 namespace Skinet.WebApi
 {
@@ -39,20 +29,18 @@ namespace Skinet.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            services.AddScoped<IProductStorage, SQLiteProductStorage>();
             services.AddDbContext<StorageContext>(x => x.UseSqlite(ConnectionString));
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
+            services.AddApplicationServices();
+            services.AddSwaggerDocumentation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
             app.UseHttpsRedirection();
 
@@ -61,6 +49,8 @@ namespace Skinet.WebApi
             app.UseStaticFiles();
 
             app.UseAuthorization();
+
+            app.UseSwaggerDocumentation();
 
             app.UseEndpoints(endpoints =>
             {

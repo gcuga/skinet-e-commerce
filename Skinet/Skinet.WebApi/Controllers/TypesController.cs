@@ -1,24 +1,26 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 using AutoMapper;
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using Skinet.Core;
 using Skinet.WebApi.Dtos;
+using Skinet.WebApi.Errors;
 
 namespace Skinet.WebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TypesController : ControllerBase
+    public class TypesController : BaseApiController
     {
         private readonly IProductStorage _productStorage;
         private readonly IMapper _mapper;
 
-        public TypesController(IProductStorage productStorage, IMapper mapper)
+        public TypesController(IProductStorage productStorage,
+                               IMapper mapper,
+                               IApiStatusMessageDictionary statusMessageDictionary)
+            : base(statusMessageDictionary)
         {
             _productStorage = productStorage;
             _mapper = mapper;
@@ -34,6 +36,8 @@ namespace Skinet.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductTypeToReturnDto>> Get(int id)
         {
             ProductType productType = await _productStorage.GetProductTypeAsync(id);
@@ -46,7 +50,7 @@ namespace Skinet.WebApi.Controllers
                 return Ok(productTypeToReturnDto);
             }
 
-            return NotFound();
+            return NotFound(new ApiResponse(ApiStatusCode.NotFound, _statusMessageDictionary));
         }
     }
 }
