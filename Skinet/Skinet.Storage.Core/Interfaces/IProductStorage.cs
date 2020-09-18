@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Skinet.Core
+using Skinet.Core;
+using Skinet.Storage.Core.Specifications;
+
+namespace Skinet.Storage.Core.Interfaces
 {
     public interface IProductStorage
     {
         Task<Product> GetProductAsync(int id);
-        Task<IReadOnlyList<Product>> GetProductsAsync();
+        Task<IReadOnlyList<Product>> GetProductsAsync(ProductSpecParams productParams);
+        Task<int> GetProductsCountAsync(ProductSpecParams productParams);
 
         Task<ProductType> GetProductTypeAsync(int id);
         Task<IReadOnlyList<ProductType>> GetProductTypesAsync();

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Skinet.Storage.Core.Specifications;
 
-namespace Skinet.Storage.Core
+namespace Skinet.Storage.Core.Interfaces
 {
     public interface IGenericStorage<T, C>
         where T : BaseEntityDto
@@ -15,5 +15,6 @@ namespace Skinet.Storage.Core
         Task<IReadOnlyList<T>> ListAllAsync();
         Task<T> GetEntityWithSpec(ISpecification<T> spec);
         Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
+        Task<int> CountAsync(ISpecification<T> spec);
     }
 }

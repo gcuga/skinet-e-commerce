@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 using AutoMapper;
@@ -8,8 +7,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using Skinet.Core;
+using Skinet.Storage.Core.Interfaces;
+using Skinet.Storage.Core.Specifications;
 using Skinet.WebApi.Dtos;
 using Skinet.WebApi.Errors;
+using Skinet.WebApi.Helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,12 +32,16 @@ namespace Skinet.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> Get()
+        public async Task<ActionResult<Pagination<ProductToReturnDto>>> Get(
+            [FromQuery]ProductSpecParams productParams)
         {
-            var products = await _productStorage.GetProductsAsync();
+            var totalItems = await _productStorage.GetProductsCountAsync(productParams);
+            var products = await _productStorage.GetProductsAsync(productParams);
+            var data = _mapper
+                .Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
 
-            return Ok(_mapper
-                .Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products));
+            return Ok(new Pagination<ProductToReturnDto>(productParams.PageIndex,
+                productParams.PageSize, totalItems, data));
         }
 
         [HttpGet("{id}")]

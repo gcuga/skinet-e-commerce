@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
+using Skinet.Storage.Core.Interfaces;
 using Skinet.Storage.Core.Specifications;
 
 namespace Skinet.Storage.Core
@@ -41,10 +40,19 @@ namespace Skinet.Storage.Core
             return await ApplySpecification(spec).ToListAsync();
         }
 
+        public async Task<int> CountAsync(ISpecification<T> spec)
+        {
+            return await ApplySpecificationCriteriaOnly(spec).CountAsync();
+        }
+
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
             return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
+        }
 
+        private IQueryable<T> ApplySpecificationCriteriaOnly(ISpecification<T> spec)
+        {
+            return SpecificationEvaluatorCriteria<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
         }
     }
 }

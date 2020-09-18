@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 
 using Skinet.Core;
 using Skinet.Storage.Core;
+using Skinet.Storage.Core.Interfaces;
+using Skinet.Storage.Core.Specifications;
 using Skinet.Storage.SQLite.EF.Context;
 using Skinet.Storage.SQLite.EF.Entities;
 using Skinet.Storage.SQLite.EF.Specifications;
@@ -25,7 +27,7 @@ namespace Skinet.Storage.SQLite.EF
 
         public async Task<Product> GetProductAsync(int id)
         {
-            var spec = new ProductDtoWithTypesAndBrandsSpecification(id);
+            var spec = new ProductWithTypesAndBrandsSpecification(id);
 
             ProductDto productDto = await _productStorage.GetEntityWithSpec(spec);
 
@@ -46,13 +48,20 @@ namespace Skinet.Storage.SQLite.EF
             return productTypeDto?.ToCoreEntity();
         }
 
-        public async Task<IReadOnlyList<Product>> GetProductsAsync()
+        public async Task<IReadOnlyList<Product>> GetProductsAsync(ProductSpecParams productParams)
         {
-            var spec = new ProductDtoWithTypesAndBrandsSpecification();
+            var spec = new ProductWithTypesAndBrandsSpecification(productParams);
 
             return (await _productStorage.ListAsync(spec))
                 .Select(p => p.ToCoreEntity())
                 .ToList();
+        }
+
+        public async Task<int> GetProductsCountAsync(ProductSpecParams productParams)
+        {
+            var countSpec = new ProductWithFiltersForCountSpecification(productParams);
+
+            return (await _productStorage.CountAsync(countSpec));
         }
 
         public async Task<IReadOnlyList<ProductBrand>> GetProductBrandsAsync()

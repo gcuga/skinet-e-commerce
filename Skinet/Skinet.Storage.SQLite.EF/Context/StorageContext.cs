@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
+
+using Microsoft.EntityFrameworkCore;
 
 using Skinet.Storage.SQLite.EF.Config;
 using Skinet.Storage.SQLite.EF.Entities;
@@ -25,6 +27,24 @@ namespace Skinet.Storage.SQLite.EF.Context
             modelBuilder.ApplyConfiguration(new ProductTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductBrandConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
+
+            if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
+            {
+                foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+                {
+                    var properties = entityType
+                        .ClrType
+                        .GetProperties()
+                        .Where(p => p.PropertyType == typeof(decimal));
+
+                    foreach (var property in properties)
+                    {
+                        modelBuilder.Entity(entityType.Name)
+                            .Property(property.Name)
+                            .HasConversion<double>();
+                    }
+                }
+            }
         }
     }
 }

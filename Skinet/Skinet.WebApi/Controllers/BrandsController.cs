@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using Skinet.Core;
+using Skinet.Storage.Core.Interfaces;
 using Skinet.WebApi.Dtos;
 using Skinet.WebApi.Errors;
 

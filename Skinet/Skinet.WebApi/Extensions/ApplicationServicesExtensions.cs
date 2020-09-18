@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-using Skinet.Core;
+using Skinet.Storage.Core.Interfaces;
 using Skinet.Storage.SQLite.EF;
 using Skinet.WebApi.Errors;
 
