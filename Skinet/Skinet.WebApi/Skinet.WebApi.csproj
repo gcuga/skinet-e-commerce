@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Skinet.Core\Skinet.Core.csproj" />
     <ProjectReference Include="..\Skinet.Storage.Core\Skinet.Storage.Core.csproj" />
+    <ProjectReference Include="..\Skinet.Storage.Redis\Skinet.Storage.Redis.csproj" />
     <ProjectReference Include="..\Skinet.Storage.SQLite.EF.DbInit\Skinet.Storage.SQLite.EF.DbInit.csproj" />
     <ProjectReference Include="..\Skinet.Storage.SQLite.EF.DbSeed\Skinet.Storage.SQLite.EF.DbSeed.csproj" />
     <ProjectReference Include="..\Skinet.Storage.SQLite.EF\Skinet.Storage.SQLite.EF.csproj" />

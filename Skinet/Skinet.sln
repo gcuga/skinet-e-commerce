@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skinet.Storage.SQLite.EF.Db
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skinet.Storage.SQLite.EF.DbSeed", "Skinet.Storage.SQLite.EF.DbSeed\Skinet.Storage.SQLite.EF.DbSeed.csproj", "{60C84088-AD18-4573-BC4F-757EE7E71DEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.Storage.Core", "Skinet.Storage.Core\Skinet.Storage.Core.csproj", "{EC942F3C-5F35-4FEE-B3E8-3676394A4D4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skinet.Storage.Core", "Skinet.Storage.Core\Skinet.Storage.Core.csproj", "{EC942F3C-5F35-4FEE-B3E8-3676394A4D4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.Storage.Redis", "Skinet.Storage.Redis\Skinet.Storage.Redis.csproj", "{ACC8CDA2-74D3-4F57-832D-C32F98998BEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{EC942F3C-5F35-4FEE-B3E8-3676394A4D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC942F3C-5F35-4FEE-B3E8-3676394A4D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC942F3C-5F35-4FEE-B3E8-3676394A4D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC8CDA2-74D3-4F57-832D-C32F98998BEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC8CDA2-74D3-4F57-832D-C32F98998BEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC8CDA2-74D3-4F57-832D-C32F98998BEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC8CDA2-74D3-4F57-832D-C32F98998BEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

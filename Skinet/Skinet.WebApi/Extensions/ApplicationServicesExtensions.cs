@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
 using Skinet.Storage.Core.Interfaces;
+using Skinet.Storage.Redis.Interfaces;
+using Skinet.Storage.Redis.Repositories;
 using Skinet.Storage.SQLite.EF;
 using Skinet.WebApi.Errors;
 
@@ -16,6 +18,7 @@ namespace Skinet.WebApi.Extensions
         {
             services.AddSingleton<IApiStatusMessageDictionary, ApiStatusMessageDictionary>();
             services.AddScoped<IProductStorage, SQLiteProductStorage>();
+            services.AddScoped<IBasketStorage, BasketStorage>();
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

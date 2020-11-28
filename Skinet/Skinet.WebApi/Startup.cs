@@ -12,6 +12,8 @@ using Skinet.WebApi.Extensions;
 using Skinet.WebApi.Helpers;
 using Skinet.WebApi.Middleware;
 
+using StackExchange.Redis;
+
 namespace Skinet.WebApi
 {
     public class Startup
@@ -30,6 +32,11 @@ namespace Skinet.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<StorageContext>(x => x.UseSqlite(ConnectionString));
+            services.AddSingleton<IConnectionMultiplexer>(c => {
+                var configuration = ConfigurationOptions.Parse(Configuration
+                    .GetConnectionString("Redis"), true);
+                return ConnectionMultiplexer.Connect(configuration);
+            });
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
             services.AddApplicationServices();
